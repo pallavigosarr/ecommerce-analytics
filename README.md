@@ -33,6 +33,9 @@ ecommerce-analytics/
 |
 ├── Presentaion/                
 │   └── Executive_summary_&_Insights.pptx
+|
+├── SQL/                
+│   └── SQL_script.sql
 │
 └── README.md              # Project documentation
 ```
@@ -41,11 +44,14 @@ ecommerce-analytics/
 
 
 ## 🛠️ Tech Stack & Key Analytics
-* **Language**: Python 3
+* **Language**: Python 3, SQL
 * **Libraries**: Pandas, NumPy, Matplotlib
 * **Core Techniques**: Multi-table relational joins, data cleaning (filtering canceled/unavailable orders), cumulative window aggregation, and statistical correlation tests (Pearson & Spearman coefficients).
 
----
+---  
+## SQL queries
+* **SQL_script.sql** contains different basic, intermediate, advanced queries to analyze data.
+----
 
 ## 📈 Key Visual Insights
 
