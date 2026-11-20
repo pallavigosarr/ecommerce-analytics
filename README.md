@@ -1,16 +1,16 @@
 # ecommerce-analytics
 Interactive data analysis and dashboard project exploring 100k+ e-commerce orders. Built with Python, Pandas, and Matplotlib.
 
-# 📊 Online Shopping Data Analysis Project
+# Online Shopping Data Analysis Project
 
-## 🎯 Project Overview
+## Project Overview
 This repository contains a data analysis project focused on the public e-commerce dataset. By examining approximately **100,000 successful orders** across 2016–2018, this analysis uncovers key business insights regarding sales growth, category performance, pricing elasticity, and customer retention.
 
 This project was built as a structured data analysis assignment to turn raw relational e-commerce tables into clear, actionable business strategies.
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 To keep the workspace clean and organized, the files are structured into separate directories:
 
 ```text
@@ -43,7 +43,7 @@ ecommerce-analytics/
 ---
 
 
-## 🛠️ Tech Stack & Key Analytics
+## Tech Stack & Key Analytics
 * **Language**: Python 3, SQL
 * **Libraries**: Pandas, NumPy, Matplotlib
 * **Core Techniques**: Multi-table relational joins, data cleaning (filtering canceled/unavailable orders), cumulative window aggregation, and statistical correlation tests (Pearson & Spearman coefficients).
@@ -53,7 +53,7 @@ ecommerce-analytics/
 * **SQL_script.sql** contains different basic, intermediate, advanced queries to analyze data.
 ----
 
-## 📈 Key Visual Insights
+## Key Visual Insights
 
 ### 1. Cumulative Revenue Profile (Year-over-Year Growth)
 * **Insight**: Sales in 2018 scaled exponentially compared to 2017. By August 2018, total platform sales surpassed **7 Million BRL**, hitting performance milestones months ahead of the previous year's schedule. 
@@ -74,7 +74,7 @@ ecommerce-analytics/
 
 ---
 
-## 🚀 How to Run the Project Locally
+## How to Run the Project Locally
 
 1. **Clone the repository**:
    ```bash
