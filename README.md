@@ -6,7 +6,7 @@ Interactive data analysis and dashboard project exploring 100k+ e-commerce order
 # Online Shopping Data Analysis Project
 
 ## 1. Project Overview
-This repository presents a comprehensive end-to-end data analysis project based on the Brazilian E-Commerce (Olist) public dataset. By examining approximately **100,000 orders** placed between 2016 and 2018 across multiple relational tables (`customers`, `orders`, `order_items`, `payments`, `products`, and `sellers`), this project transforms raw transactional records into visual dashboards, cross-verified SQL/Python solutions, and strategic business recommendations.
+This repository presents a comprehensive end-to-end data analysis project based on the Brazilian E-Commerce public dataset. By examining approximately **100,000 orders** placed between 2016 and 2018 across multiple relational tables (`customers`, `orders`, `order_items`, `payments`, `products`, and `sellers`), this project transforms raw transactional records into visual dashboards, cross-verified SQL/Python solutions, and strategic business recommendations.
 
 ---
 
