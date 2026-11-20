@@ -242,42 +242,24 @@ LEFT JOIN ranked_orders r
 
 #------------------------------------------------------------------------------------
 #5. Identify the top 3 customers who spent the most money in each year.
-WITH annual_customer_spending AS (
+
+WITH yearly_spending AS (
     SELECT 
-        YEAR(o.order_purchase_timestamp) AS sales_year,
+        YEAR(o.order_purchase_timestamp) AS year,
         c.customer_unique_id,
         ROUND(SUM(oi.price), 2) AS total_spent,
-        COUNT(DISTINCT o.order_id) AS total_orders_placed
-    FROM 
-        orders o
-    JOIN 
-        order_items oi ON o.order_id = oi.order_id
-    JOIN 
-        customers c ON o.customer_id = c.customer_id
-    WHERE 
-        o.order_status NOT IN ('canceled', 'unavailable')
-    GROUP BY 
-        YEAR(o.order_purchase_timestamp),
-        c.customer_unique_id),
-ranked_whales AS (
-    SELECT 
-        sales_year,
-        customer_unique_id,
-        total_spent,
-        total_orders_placed,
-        DENSE_RANK() OVER (PARTITION BY sales_year ORDER BY total_spent DESC) AS spending_rank
-    FROM 
-        annual_customer_spending)
-SELECT 
-    sales_year,
-    spending_rank,
-    customer_unique_id,
-    total_spent,
-    total_orders_placed
-FROM 
-    ranked_whales
-WHERE 
-    spending_rank <= 3
-ORDER BY 
-    sales_year ASC, 
-    spending_rank ASC;
+        COUNT(DISTINCT o.order_id) AS total_orders,
+        DENSE_RANK() OVER (
+            PARTITION BY YEAR(o.order_purchase_timestamp) 
+            ORDER BY SUM(oi.price) DESC
+        ) AS spending_rank
+    FROM customers c
+    JOIN orders o ON c.customer_id = o.customer_id
+    JOIN order_items oi ON o.order_id = oi.order_id
+    GROUP BY year, c.customer_unique_id
+)
+SELECT year, spending_rank, customer_unique_id, total_spent, total_orders
+FROM yearly_spending
+WHERE spending_rank <= 3
+ORDER BY year ASC, spending_rank ASC, customer_unique_id ASC;
+
