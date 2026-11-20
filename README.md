@@ -49,11 +49,7 @@ ecommerce-analytics/
 │   └── sellers.csv
 │
 ├── notebooks/                  # Google Colab Python analysis & visualizations
-│   └── onlineshopping.ipynb
-│
-├── dashboard_Screenshots/      # Visual dashboard outputs
-│   ├── Dashboard1.png
-│   └── Dashboard2.png
+│   └── pythoncodeOnlineShopping.ipynb
 │
 ├── Presentation/               # Executive summary & side-by-side PPT
 │   └── Executive_summary_&_Insights.pptx
