@@ -213,31 +213,29 @@ FROM yearly_sales;
 #4. Calculate the retention rate of customers, defined as the percentage of customers who make another purchase 
 #within 6 months of their first purchase
 
-WITH ranked_orders AS (
+WITH first_orders AS (
     SELECT 
-        c.customer_unique_id,
-        o.order_id,
-        CAST(o.order_purchase_timestamp AS DATETIME) AS purchase_dt,
-        ROW_NUMBER() OVER (
-            PARTITION BY c.customer_unique_id 
-            ORDER BY CAST(o.order_purchase_timestamp AS DATETIME), o.order_id
-        ) AS rn
+        c.customer_id,
+        MIN(CAST(o.order_purchase_timestamp AS DATETIME)) AS first_purchase
     FROM customers c
-    JOIN orders o ON c.customer_id = o.customer_id),
-first_orders AS (
-    SELECT customer_unique_id, order_id AS first_order_id, purchase_dt AS first_purchase
-    FROM ranked_orders
-    WHERE rn = 1)
+    JOIN orders o ON c.customer_id = o.customer_id
+    GROUP BY c.customer_id
+),
+repeat_customers AS (
+    SELECT DISTINCT f.customer_id
+    FROM first_orders f
+    JOIN orders o ON f.customer_id = o.customer_id
+    WHERE CAST(o.order_purchase_timestamp AS DATETIME) > f.first_purchase
+      AND CAST(o.order_purchase_timestamp AS DATETIME) <= DATE_ADD(f.first_purchase, INTERVAL 6 MONTH)
+)
 SELECT 
-    COUNT(DISTINCT r.customer_unique_id) AS retained_customers,
-    COUNT(DISTINCT f.customer_unique_id) AS total_customers,
-    ROUND((COUNT(DISTINCT r.customer_unique_id) * 100.0) / COUNT(DISTINCT f.customer_unique_id), 2) AS retention_rate_pct
+    COUNT(DISTINCT r.customer_id) AS retained_customers,
+    COUNT(DISTINCT f.customer_id) AS total_customers,
+    ROUND((COUNT(DISTINCT r.customer_id) * 100.0) / COUNT(DISTINCT f.customer_id), 2) AS retention_rate_pct
 FROM first_orders f
-LEFT JOIN ranked_orders r 
-    ON f.customer_unique_id = r.customer_unique_id
-    AND r.order_id != f.first_order_id
-    AND r.purchase_dt >= f.first_purchase
-    AND r.purchase_dt <= DATE_ADD(f.first_purchase, INTERVAL 6 MONTH);
+LEFT JOIN repeat_customers r ON f.customer_id = r.customer_id;
+
+
 
 
 #------------------------------------------------------------------------------------
